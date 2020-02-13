@@ -3,18 +3,18 @@ package cc.xpbootcamp.warmup.order;
 import java.util.List;
 
 public class Order {
-    String nm;
+    String cName;
     String addr;
-    List<LineItem> li;
+    List<LineItem> lineItemList;
 
-    public Order(String nm, String addr, List<LineItem> li) {
-        this.nm = nm;
+    public Order(String cName, String addr, List<LineItem> lineItemList) {
+        this.cName = cName;
         this.addr = addr;
-        this.li = li;
+        this.lineItemList = lineItemList;
     }
 
     public String getCustomerName() {
-        return nm;
+        return cName;
     }
 
     public String getCustomerAddress() {
@@ -22,6 +22,6 @@ public class Order {
     }
 
     public List<LineItem> getLineItems() {
-        return li;
+        return lineItemList;
     }
 }
