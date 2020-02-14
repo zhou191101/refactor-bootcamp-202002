@@ -1,4 +1,4 @@
-# 重构练功房热身编程题
+# 重构线上练功房热身编程题
 本项目为ThoughWorks内部【敏捷工程实践系列】之「重构」线上练功房热身编程题，涵盖两个小题目，一道是重点是关于`TDD`，一道重点关于`重构`，两道题业务复杂度相对简单，预估花费 0.5 ~ 1小时完成。
 
 目的：1. 热身；2. 摸底
@@ -28,14 +28,14 @@ When 位数为4, when 求值, Then 返回3
 
 
 #### 练功要求
-1. 针对上述场景，测试先行的方式，完成需求，测试用例至少覆盖7种场景。
+1. 针对上述场景，测试先行的方式，完成需求，测试用例至少覆盖5种场景。
 2. 测试命名采用遵循`given，when，then`的方式，比如：`should_return_3_when_calculate_given_position_is_4`
 3. 每通过一个测试做一次Commit，Commit信息需要清晰表达意图
 4. 将测试代码放置在`src/test`下的`cc.xpbootcamp.warmup.fibonacci` package中
 5. 将产品代码放置在`src/main`下的`cc.xpbootcamp.warmup.fibonacci` package中
 
 
-### 2. 超市收银
+### 2. 超市收银机
 #### 背景
 老王经营了一家超市，之前找了一个Vendor开发了一款简化版的超市收银机。收银机的功能很简单：在顾客结账时，需要打印订单信息。之前的Vendor已经开发出了可以用的代码。
 
@@ -49,9 +49,9 @@ TW工程师接收后，却发现代码存在神一般的命名和谜一般的逻
 
 #### 练功要求
 1. 重构前运行测试，确保测试是通过的
-2. 每修改一处代码，运行测试，确保测试是通过的，并做一次Commit，Commit信息包含代码坏味道和重构手法
-3. 产品代码位于`src/main`下的`cc.xpbootcamp.warmup.order`package中
-4. 测试代码位于`src/test`下的`cc.xpbootcamp.warmup.order`package中
+2. 每修改一处代码，运行测试，确保测试是通过的，并做一次Commit，Commit信息描述你认为的代码坏味道和重构手法
+3. 产品代码位于`src/main`下的`cc.xpbootcamp.warmup.cashier`package中
+4. 测试代码位于`src/test`下的`cc.xpbootcamp.warmup.cashier`package中
 5. 不要修改测试代码
 6. 尽自己所能，尽可能多的找出坏味道，并重构掉
 

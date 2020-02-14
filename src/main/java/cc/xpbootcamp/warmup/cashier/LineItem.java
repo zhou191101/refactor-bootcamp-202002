@@ -1,4 +1,4 @@
-package cc.xpbootcamp.warmup.order;
+package cc.xpbootcamp.warmup.cashier;
 
 public class LineItem {
 	private String desc;

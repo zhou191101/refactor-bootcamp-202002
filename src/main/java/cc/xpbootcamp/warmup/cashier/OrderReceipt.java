@@ -1,4 +1,4 @@
-package cc.xpbootcamp.warmup.order;
+package cc.xpbootcamp.warmup.cashier;
 
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
