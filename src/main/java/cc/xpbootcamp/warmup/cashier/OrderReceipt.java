@@ -5,10 +5,11 @@ package cc.xpbootcamp.warmup.cashier;
  * price and amount. It also calculates the sales tax @ 10% and prints as part
  * of order. It computes the total order amount (amount of individual lineItems +
  * total sales tax) and prints it.
- *
  */
 public class OrderReceipt {
     private Order order;
+    private static final String SALES_TAX_NAME = "Sales Tax";
+    private static final String TOTAL_AMOUNT_NAME = "Total Amount";
 
     public OrderReceipt(Order order) {
         this.order = order;
@@ -38,11 +39,15 @@ public class OrderReceipt {
         }
 
         // prints the state tax
-        output.append("Sales Tax").append('\t').append(totSalesTx);
+        printsStateTax(output, totSalesTx, SALES_TAX_NAME);
 
         // print total amount
-        output.append("Total Amount").append('\t').append(tot);
+        output.append(TOTAL_AMOUNT_NAME).append('\t').append(tot);
         return output.toString();
+    }
+
+    private void printsStateTax(StringBuilder output, double totSalesTx, String s) {
+        output.append(s).append('\t').append(totSalesTx);
     }
 
     private void printLineItem(StringBuilder output, LineItem lineItem) {
