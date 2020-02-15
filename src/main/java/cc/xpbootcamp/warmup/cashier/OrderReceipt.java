@@ -18,14 +18,11 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
 
-        // print headers
-        output.append("======Printing Orders======\n");
+        printHeader(output);
 
-        // print date, bill no, customer name
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
+        printCustomerName(output);
+        printAddress(output);
 
-        // prints lineItems
         double totSalesTx = 0d;
         double tot = 0d;
 
@@ -38,16 +35,30 @@ public class OrderReceipt {
             tot += getTotalAmountOfLineItem(lineItem, salesTax);
         }
 
-        // prints the state tax
-        printsStateTax(output, totSalesTx, SALES_TAX_NAME);
+        printsStateTax(output, totSalesTx);
 
-        // print total amount
-        output.append(TOTAL_AMOUNT_NAME).append('\t').append(tot);
+        printTotalAmount(output, tot);
         return output.toString();
     }
 
-    private void printsStateTax(StringBuilder output, double totSalesTx, String s) {
-        output.append(s).append('\t').append(totSalesTx);
+    private void printHeader(StringBuilder output) {
+        output.append("======Printing Orders======\n");
+    }
+
+    private StringBuilder printCustomerName(StringBuilder output) {
+        return output.append(order.getCustomerName());
+    }
+
+    private void printAddress(StringBuilder output) {
+        output.append(order.getCustomerAddress());
+    }
+
+    private void printTotalAmount(StringBuilder output, double tot) {
+        output.append(TOTAL_AMOUNT_NAME).append('\t').append(tot);
+    }
+
+    private void printsStateTax(StringBuilder output, double totSalesTx) {
+        output.append(SALES_TAX_NAME).append('\t').append(totSalesTx);
     }
 
     private void printLineItem(StringBuilder output, LineItem lineItem) {
