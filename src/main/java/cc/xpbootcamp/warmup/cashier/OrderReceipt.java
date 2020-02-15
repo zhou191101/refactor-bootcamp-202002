@@ -27,15 +27,9 @@ public class OrderReceipt {
         // prints lineItems
         double totSalesTx = 0d;
         double tot = 0d;
+
         for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
+            printLineItem(output, lineItem);
 
             double salesTax = getSalesTax(lineItem);
             totSalesTx += salesTax;
@@ -49,6 +43,17 @@ public class OrderReceipt {
         // print total amount
         output.append("Total Amount").append('\t').append(tot);
         return output.toString();
+    }
+
+    private void printLineItem(StringBuilder output, LineItem lineItem) {
+        output.append(lineItem.getDescription());
+        output.append('\t');
+        output.append(lineItem.getPrice());
+        output.append('\t');
+        output.append(lineItem.getQuantity());
+        output.append('\t');
+        output.append(lineItem.totalAmount());
+        output.append('\n');
     }
 
     private double getTotalAmountOfLineItem(LineItem lineItem, double salesTax) {
