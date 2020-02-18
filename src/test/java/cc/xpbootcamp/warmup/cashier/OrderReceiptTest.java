@@ -39,7 +39,7 @@ class OrderReceiptTest {
         assertThat(output, containsString("税额：5.30\n"));
         if ("星期三".equals(DateUtils.getNowWeek())) {
             assertThat(output, containsString("折扣：1.17\n"));
-            assertThat(output, containsString("总价：57.13\n"));
+            assertThat(output, containsString("总价：57.13"));
         } else {
             assertThat(output, containsString("总价：58.30"));
         }

@@ -2,8 +2,6 @@ package cc.xpbootcamp.warmup.cashier;
 
 import cc.xpbootcamp.warmup.utils.DateUtils;
 
-import java.text.DecimalFormat;
-
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
  * price and amount. It also calculates the sales tax @ 10% and prints as part
@@ -42,25 +40,23 @@ public class OrderReceipt {
         double totSalesTx = getTotalSalesTax(totLineItemAmount);
         printsStateTax(output, totSalesTx);
 
-        double tot ;
+        double tot = getTot(totLineItemAmount, totSalesTx);
         if (SPECIAL_WEEK.equals(nowWeek)) {
-            tot = getTot(totLineItemAmount, totSalesTx, 0.98);
-            printDiscount(output, totLineItemAmount, 0.02);
-        } else {
-            tot = getTot(totLineItemAmount, totSalesTx, 1.0);
+            printDiscount(output, tot, 0.02);
+            tot = tot * 0.98;
         }
         printTotalAmount(output, tot);
         return output.toString();
+    }
+
+    private double getTot(double totLineItemAmount, double totSalesTx) {
+        return totLineItemAmount + totSalesTx;
     }
 
     private void printDiscount(StringBuilder output, double totLineItemAmount, double ratio) {
         output.append(DISCOUNT_NAME).append(formatDouble(totLineItemAmount * ratio)).append("\n");
     }
 
-
-    private double getTot(double totLineItemAmount, double totSalesTx, double ratio) {
-        return totLineItemAmount * ratio + totSalesTx;
-    }
 
     private void printDividingLine(StringBuilder output) {
         output.append("-----------------------------------\n");
@@ -101,8 +97,8 @@ public class OrderReceipt {
         return totalAmount * .10;
     }
 
-    private String formatDouble(double x){
-        return String.format("%.2f",x);
+    private String formatDouble(double x) {
+        return String.format("%.2f", x);
     }
 
 }
