@@ -1,5 +1,9 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import cc.xpbootcamp.warmup.utils.DateUtils;
+
+import java.text.DecimalFormat;
+
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
  * price and amount. It also calculates the sales tax @ 10% and prints as part
@@ -8,8 +12,11 @@ package cc.xpbootcamp.warmup.cashier;
  */
 public class OrderReceipt {
     private Order order;
-    private static final String SALES_TAX_NAME = "Sales Tax";
-    private static final String TOTAL_AMOUNT_NAME = "Total Amount";
+    private static final String SALES_TAX_NAME = "税额：";
+    private static final String TOTAL_AMOUNT_NAME = "总价：";
+    private static final String DISCOUNT_NAME = "折扣：";
+    private static final String SPECIAL_WEEK = "星期三";
+
 
     public OrderReceipt(Order order) {
         this.order = order;
@@ -20,63 +27,82 @@ public class OrderReceipt {
 
         printHeader(output);
 
-        printCustomerName(output);
-        printAddress(output);
+        String nowWeek = DateUtils.getNowWeek();
+        String nowTime = DateUtils.getNowTime();
+        printNowDate(output, nowTime, nowWeek);
 
-        double totSalesTx = 0d;
-        double tot = 0d;
-
+        double totLineItemAmount = 0d;
         for (LineItem lineItem : order.getLineItems()) {
             printLineItem(output, lineItem);
-
-            double salesTax = getSalesTax(lineItem);
-            totSalesTx += salesTax;
-
-            tot += getTotalAmountOfLineItem(lineItem, salesTax);
+            totLineItemAmount += lineItem.totalAmount();
         }
 
+        printDividingLine(output);
+
+        double totSalesTx = getTotalSalesTax(totLineItemAmount);
         printsStateTax(output, totSalesTx);
 
+        double tot ;
+        if (SPECIAL_WEEK.equals(nowWeek)) {
+            tot = getTot(totLineItemAmount, totSalesTx, 0.98);
+            printDiscount(output, totLineItemAmount, 0.02);
+        } else {
+            tot = getTot(totLineItemAmount, totSalesTx, 1.0);
+        }
         printTotalAmount(output, tot);
         return output.toString();
     }
 
+    private void printDiscount(StringBuilder output, double totLineItemAmount, double ratio) {
+        output.append(DISCOUNT_NAME).append(formatDouble(totLineItemAmount * ratio)).append("\n");
+    }
+
+
+    private double getTot(double totLineItemAmount, double totSalesTx, double ratio) {
+        return totLineItemAmount * ratio + totSalesTx;
+    }
+
+    private void printDividingLine(StringBuilder output) {
+        output.append("-----------------------------------\n");
+    }
+
+    private void printNowDate(StringBuilder output, String nowTime, String nowWeek) {
+        output.append(nowTime);
+        output.append("，");
+        output.append(nowWeek);
+        output.append("\n");
+
+    }
+
     private void printHeader(StringBuilder output) {
-        output.append("======Printing Orders======\n");
-    }
-
-    private StringBuilder printCustomerName(StringBuilder output) {
-        return output.append(order.getCustomerName());
-    }
-
-    private void printAddress(StringBuilder output) {
-        output.append(order.getCustomerAddress());
+        output.append("===== 老王超市，值得信赖 ======\n");
     }
 
     private void printTotalAmount(StringBuilder output, double tot) {
-        output.append(TOTAL_AMOUNT_NAME).append('\t').append(tot);
+        output.append(TOTAL_AMOUNT_NAME).append(formatDouble(tot));
     }
 
     private void printsStateTax(StringBuilder output, double totSalesTx) {
-        output.append(SALES_TAX_NAME).append('\t').append(totSalesTx);
+        output.append(SALES_TAX_NAME).append(formatDouble(totSalesTx)).append("\n");
     }
 
     private void printLineItem(StringBuilder output, LineItem lineItem) {
         output.append(lineItem.getDescription());
-        output.append('\t');
+        output.append(", ");
         output.append(lineItem.getPrice());
-        output.append('\t');
+        output.append(" x ");
         output.append(lineItem.getQuantity());
-        output.append('\t');
+        output.append(", ");
         output.append(lineItem.totalAmount());
         output.append('\n');
     }
 
-    private double getTotalAmountOfLineItem(LineItem lineItem, double salesTax) {
-        return lineItem.totalAmount() + salesTax;
+    private double getTotalSalesTax(double totalAmount) {
+        return totalAmount * .10;
     }
 
-    private double getSalesTax(LineItem lineItem) {
-        return lineItem.totalAmount() * .10;
+    private String formatDouble(double x){
+        return String.format("%.2f",x);
     }
+
 }
