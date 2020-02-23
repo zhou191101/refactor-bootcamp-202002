@@ -32,7 +32,7 @@ class OrderReceiptTest {
 
         String output = receipt.printReceipt();
         assertThat(output, containsString("===== 老王超市，值得信赖 ======\n"));
-        assertThat(output, containsString("2020年02月18日，星期二\n"));
+        assertThat(output, containsString(DateUtils.getNowTime() + "，" + DateUtils.getNowWeek() + "\n"));
         assertThat(output, containsString("巧克力, 21.5 x 2, 43.0\n"));
         assertThat(output, containsString("小白菜, 10.0 x 1, 10.0\n"));
         assertThat(output, containsString("-----------------------------------\n"));
@@ -49,11 +49,11 @@ class OrderReceiptTest {
             add(new LineItem("巧克力", 21.50d, 2));
             add(new LineItem("小白菜", 10.00d, 1));
         }};
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems, "2020年02月19日", "星期三"));
 
         String output = receipt.printReceipt();
         assertThat(output, containsString("===== 老王超市，值得信赖 ======\n"));
-        assertThat(output, containsString("2020年02月18日，星期二\n"));
+        assertThat(output, containsString("2020年02月19日，星期三\n"));
         assertThat(output, containsString("巧克力, 21.5 x 2, 43.0\n"));
         assertThat(output, containsString("小白菜, 10.0 x 1, 10.0\n"));
         assertThat(output, containsString("-----------------------------------\n"));

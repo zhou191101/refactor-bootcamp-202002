@@ -25,9 +25,8 @@ public class OrderReceipt {
 
         printHeader(output);
 
-        String nowWeek = DateUtils.getNowWeek();
-        String nowTime = DateUtils.getNowTime();
-        printNowDate(output, nowTime, nowWeek);
+        String nowWeek = order.getOrderWeek();
+        printNowDate(output, order.getOrderDate(), nowWeek);
 
         double totLineItemAmount = 0d;
         for (LineItem lineItem : order.getLineItems()) {
