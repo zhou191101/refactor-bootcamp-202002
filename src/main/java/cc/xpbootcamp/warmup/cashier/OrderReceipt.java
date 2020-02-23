@@ -1,7 +1,5 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import cc.xpbootcamp.warmup.utils.DateUtils;
-
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
  * price and amount. It also calculates the sales tax @ 10% and prints as part
