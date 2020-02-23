@@ -8,12 +8,6 @@ package cc.xpbootcamp.warmup.cashier;
  */
 public class OrderReceipt {
     private Order order;
-    private static final String SALES_TAX_NAME = "税额：";
-    private static final String TOTAL_AMOUNT_NAME = "总价：";
-    private static final String DISCOUNT_NAME = "折扣：";
-    private static final String SPECIAL_WEEK = "星期三";
-
-
     public OrderReceipt(Order order) {
         this.order = order;
     }
