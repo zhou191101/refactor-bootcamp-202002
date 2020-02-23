@@ -23,7 +23,7 @@ class OrderReceiptTest {
     }
 
     @Test
-    public void shouldPrintLineItemAndSalesTaxInformation() {
+    public void shouldPrintLineItemAndSalesTaxInformationWithoutWednesday() {
         List<LineItem> lineItems = new ArrayList<LineItem>() {{
             add(new LineItem("巧克力", 21.50d, 2));
             add(new LineItem("小白菜", 10.00d, 1));
@@ -37,13 +37,29 @@ class OrderReceiptTest {
         assertThat(output, containsString("小白菜, 10.0 x 1, 10.0\n"));
         assertThat(output, containsString("-----------------------------------\n"));
         assertThat(output, containsString("税额：5.30\n"));
-        if ("星期三".equals(DateUtils.getNowWeek())) {
-            assertThat(output, containsString("折扣：1.17\n"));
-            assertThat(output, containsString("总价：57.13"));
-        } else {
-            assertThat(output, containsString("总价：58.30"));
-        }
+        assertThat(output, containsString("总价：58.30"));
+
 
     }
 
+
+    @Test
+    public void shouldPrintLineItemAndSalesTaxInformationWithWednesday() {
+        List<LineItem> lineItems = new ArrayList<LineItem>() {{
+            add(new LineItem("巧克力", 21.50d, 2));
+            add(new LineItem("小白菜", 10.00d, 1));
+        }};
+        OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
+
+        String output = receipt.printReceipt();
+        assertThat(output, containsString("===== 老王超市，值得信赖 ======\n"));
+        assertThat(output, containsString("2020年02月18日，星期二\n"));
+        assertThat(output, containsString("巧克力, 21.5 x 2, 43.0\n"));
+        assertThat(output, containsString("小白菜, 10.0 x 1, 10.0\n"));
+        assertThat(output, containsString("-----------------------------------\n"));
+        assertThat(output, containsString("税额：5.30\n"));
+        assertThat(output, containsString("折扣：1.17\n"));
+        assertThat(output, containsString("总价：57.13"));
+
+    }
 }
